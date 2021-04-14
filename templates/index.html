@@ -5,6 +5,35 @@
 	<title>Title</title>
 </head>
 <body>
-<p>Name: {{ name }}</p>
+<table>
+	<tr>
+		<th>protocol</th>
+		<th>time</th>
+		<th>State</th>
+		<th>src_IP</th>
+		<th>dst_IP</th>
+		<th>src_port</th>
+		<th>dst_port</th>
+		<th>src_IP</th>
+		<th>dst_IP</th>
+		<th>src_port</th>
+		<th>dst_port</th>
+		<th>code_link</th>
+	</tr>
+	{% for data_table in data %}
+	<tr>
+ 		{% for parameter_value_table in data_table.split(", ")%} 
+			{% if "id" not in parameter_value_table %} 
+					{% if "=" in parameter_value_table %}
+						<td>{{ (((parameter_value_table.split(":"))[1]).split("="))[1].replace('"','').replace('}','') }}</td>
+					{% else %}
+					<td>{{ (parameter_value_table.split(":"))[1].replace('"','').replace(']}','').replace('[','') }}</td>
+					{% endif %}
+			{% endif %} 
+		{% endfor %}  
+	</tr>
+	{% endfor %}
+</table>
+<!-- <p>Name: {{ name }}</p> -->
 </body>
 </html>

@@ -53,6 +53,8 @@ def index():
 	posts = []
 	for post in NAT.objects():
 		posts.append(post.to_json())
+	lunch = NAT.objects.first()
+	lunch.delete()
 	return render_template('index.html', data=posts)
 
 if __name__ == "__main__":

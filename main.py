@@ -1,9 +1,11 @@
+
 from flask import Flask, request, Response, render_template
 from database.db import initialize_db
 from database.models import NAT
 #from flask_mongoengine import MongoEngine
 #from mongoengine import *
 import subprocess
+
 
 app = Flask(__name__)
 
@@ -31,9 +33,22 @@ def index():
 	output_proc.remove("")
 	number_id = 0
 	for string_list in output_proc:
-		string_list = string_list.split()
-		if "dprot" in string_list or "sport" in string_list:
-			print(string_list)
+		while "  " in string_list:
+			string_list = string_list.replace("  ", " ")
+		tmp_list = string_list.split(" ")
+		if "src=" in tmp_list[3]:
+			tmp_list.insert(3, "unknow")
+		if str(tmp_list[4])[:4] == str(tmp_list[8])[:4]:
+			if str(tmp_list[4])[4:] == str(tmp_list[9])[4:]:
+				continue
+		if str(tmp_list[4])[4:] == str(tmp_list[8])[4:]:
+				continue
+		elif str(tmp_list[8]) == "[UNREPLIED]" or tmp_list[4] == "[UNREPLIED]":
+			continue
+		elif str(tmp_list[0]) == "icmp" and str(tmp_list[5])[4:] == str(tmp_list[9])[4:]:
+			continue
+		else:
+			string_list = tmp_list
 			post_1 = NAT(
 				track_id=number_id,
 				protocol=string_list[0],
@@ -53,8 +68,9 @@ def index():
 	posts = []
 	for post in NAT.objects():
 		posts.append(post.to_json())
-	lunch = NAT.objects.first()
-	lunch.delete()
+#	print(NAT.objects.first())
+	for lunch in NAT.objects():
+		lunch.delete()
 	return render_template('index.html', data=posts)
 
 if __name__ == "__main__":

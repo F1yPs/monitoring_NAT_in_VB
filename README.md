@@ -17,4 +17,8 @@ For job with this repositories you need it:
     + iptables -t nat -A PREROUTING -d x.x.x.x -j DNAT --to-destination y.y.y.y    
         +  where x.x.x.x - source IP y.y.y.y - distination IP    
     + iptables -t nat -A POSTROUTING -o enp0s3 -j MASQUERADE    
-
+# Preparation and work       
+$ virtualenv env    
+$ git clone https://github.com/F1yPs/monitoring_NAT_in_VB.git    
+$ source env/bin/activate    
+(env)$ python main.py

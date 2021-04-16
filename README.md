@@ -4,11 +4,11 @@ For job with this repositories you need it:
 1)2 Virtual Machine (Ubuntu 18.04+) in VirtualBox or other program for virtualization    
 2)Any web-browser
 # Settings Virtual Machine
-1)for VM1(in the role PC) need settings:
+1. for VM1(in the role PC) need settings:
 - to configure /etc/netplan/00-00-installer-config.yaml    
 - check routing information with example "ip route"   
-- in menu settings VirtualBox for the net VM1 choice "internal net"     
-2)for VM2(in the role route with NAT) need settings:
+- in menu settings VirtualBox for the net VM1 choice "internal net"
+2. for VM2(in the role route with NAT) need settings:
 - to configure /etc/netplan/00-00-installer-config.yaml    
 - check routing information with example "ip route"    
 - in menu settings VirtualBox for the net VM2 choice "network bridge"    

@@ -1,4 +1,5 @@
 from .db import db
+from flask_login import UserMixin
 
 class NAT(db.Document):
     track_id = db.IntField()
@@ -14,3 +15,7 @@ class NAT(db.Document):
     dport_after = db.StringField(required=True, unique=False)
     code_link = db.StringField(required=True, uniqie=False)
 
+class DB_user(UserMixin, db.Document):
+    name = db.StringField(required=True, uniqie=False)
+    email = db.StringField(required=True, uniqie=False)
+    pasw = db.StringField(required=True, uniqie=False)

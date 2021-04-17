@@ -1,10 +1,6 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-	<meta charset="UTF-8">
-	<title>Register</title>
-</head>
-<body>
+{% extends "base.html"%}
+
+{% block content %}
 {% for cat, msg in get_flashed_messages(True) %}
 <div class="flash {{cat}}">{{msg}}</div>
 {% endfor %}
@@ -15,5 +11,4 @@
 <p><label>Confirm password: </label><input type="password" name="psw2" value="" required />
 <p><input type="submit" value="Registration" />
 </form>
-</body>
-</html>
+{% endblock %}

@@ -1,11 +1,12 @@
-
-from flask import Flask, request, Response, render_template
+from flask import Flask, request, Response, render_template, flash, redirect, url_for
 from database.db import initialize_db
-from database.models import NAT
+from database.models import NAT,DB_user
 #from flask_mongoengine import MongoEngine
 #from mongoengine import *
 import subprocess
-
+from flask_login import LoginManager, login_required, login_user, UserMixin
+from UserLogin import UserLogin
+#from flask.ext.login import UserMixin
 
 app = Flask(__name__)
 
@@ -22,9 +23,63 @@ app.config['MONGODB_SETTINGS'] = {
 #connect('mongoengine_test', host='localhost', port=27017)
 db = initialize_db(app)
 #db = MongoEngine(app)
+login_manager = LoginManager(app)
 
-@app.route('/')
+@login_manager.user_loader
+def load_user(user_id):
+	return UserLogin().fromDB(user_id, DB_user)
+
+@app.route("/")
 def index():
+	return render_template('login.html')
+
+@app.route("/login", methods=["POST","GET"])
+def login():
+	if request.method == "POST":
+		user = DB_user.objects(email=request.form["email"])
+		user = user.to_json()
+		if user != "[]":
+			print(user)
+#		print(user.split(":")[4].split(", ")[0].replace('"','').replace(' ',''))
+#		print(user.split(":")[2].split(", ")[0].replace('"','').replace(' ',''))
+#		print(request.form["email"])
+			if (user.split(":")[4].split(", ")[0].replace('"','').replace(' ','')) == request.form['psw']:
+				userlogin = UserLogin().create(request.form["email"])
+				login_user(userlogin)
+				return redirect(url_for('monitoring')) 
+		else:
+			 return render_template("login.html")
+	return render_template("login.html")
+
+@app.route("/registr", methods=["POST","GET"])
+def registr():
+#	for lunch in DB_user.objects():
+#		lunch.delete()
+	if request.method == "POST":
+		if len(request.form['name']) > 4 and len(request.form["email"]) > 4 and len(request.form['psw']) > 4 and request.form["psw"] == request.form['psw2'] and DB_user.objects(email=request.form["email"]).count() == 0:
+			res = DB_user(
+				name=request.form['name'],
+				email=request.form['email'],
+				pasw=request.form['psw']
+)
+			res.save()
+			D_user = []
+			for post in DB_user.objects():
+				D_user.append(post.to_json())
+#			print(D_user)
+#			print(DB_user.objects(email=request.form["email"]))
+			if res :
+				flash("You successfully registered!", "success")
+				return redirect(url_for('login'))
+			else:
+				flash("Error by add in DB!", "error")
+		else:
+			flash("Error entered fields!", "error")
+	return render_template("registr.html")
+
+@app.route('/monitoring')
+@login_required
+def monitoring():
 	cmd = "conntrack -L"
 	global post_1
 	proc = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, universal_newlines=True)
@@ -71,7 +126,8 @@ def index():
 #	print(NAT.objects.first())
 	for lunch in NAT.objects():
 		lunch.delete()
-	return render_template('index.html', data=posts)
+	return render_template('monitoring.html', data=posts)
 
 if __name__ == "__main__":
+	app.secret_key = 'super secret key'
 	app.run(host='192.168.0.15', debug=False)

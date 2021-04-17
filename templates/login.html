@@ -1,15 +1,11 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-	<meta charset="UTF-8">
-	<title>Register</title>
-</head>
-<body>
-<form action"/login" method="post">
-<p><label>Email: </label><input type="text" name="email" value="" required />
-<p><label>Password: </label><input type="password" name="psw" value="" required />
+{% extends 'base.html' %}
+
+
+{% block content %}
+<form action"/login" method="post" enctype="multipart/form-dara">
+<p>Issue email</p><div><input placeholder="login" type="text" name="email" value="" required /></div>
+<p><p>Issue password </p><div><input placeholder="password" type="password" name="psw" value="" required /></div>
 <p><input type="submit" value="login" />
 <p><a href="{{url_for('registr')}}">Registration</a>
 </form>
-</body>
-</html>
+{% endblock %}

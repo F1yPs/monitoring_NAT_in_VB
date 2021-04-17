@@ -1,10 +1,7 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-	<meta charset="UTF-8">
-	<title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+
+{% block content %}
 <table>
 	<tr>
 		<th>protocol</th>
@@ -34,6 +31,4 @@
 	</tr>
 	{% endfor %}
 </table>
-<!-- <p>Name: {{ name }}</p> -->
-</body>
-</html>
+{% endblock %}

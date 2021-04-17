@@ -23,7 +23,7 @@ td, th, tr {
 }
 
 body {
-	background: url("/image/1533326959_low-poly-background-generator-min.png"); /* Путь к фоновому изображению */	
+	background: url("/static/image/1533326959_low-poly-background-generator-min.png"); /* Путь к фоновому изображению */	
 	color: #font-family: fantasy;;
 	font-family: sans-serif;
 }

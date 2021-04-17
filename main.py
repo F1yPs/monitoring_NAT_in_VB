@@ -31,7 +31,7 @@ def load_user(user_id):
 
 @app.route("/")
 def index():
-	return render_template('login.html')
+	return redirect(url_for('login'))
 
 @app.route("/login", methods=["POST","GET"])
 def login():
@@ -105,25 +105,25 @@ def monitoring():
 		else:
 			string_list = tmp_list
 			post_1 = NAT(
-				track_id=number_id,
 				protocol=string_list[0],
 				time=string_list[1] + "." + string_list[2],
-				src_before=string_list[3],
-				dst_before=string_list[4],
-				sport_before=string_list[5],
-				dport_before=string_list[6],
-				src_after=string_list[7],
-				dst_after=string_list[8],
-				sport_after=string_list[9],
-				dport_after=string_list[10],
-				code_link=string_list[11],
+				state=string_list[3],
+				src_before=string_list[4],
+				dst_before=string_list[5],
+				sport_before=string_list[6],
+				dport_before=string_list[7],
+				src_after=string_list[8],
+				dst_after=string_list[9],
+				sport_after=string_list[10],
+				dport_after=string_list[11],
+				code_link=string_list[12],
 )
 			post_1.save()
 			number_id += 1
 	posts = []
 	for post in NAT.objects():
 		posts.append(post.to_json())
-#	print(NAT.objects.first())
+#	print(NAT.objects.to_json.first())
 	for lunch in NAT.objects():
 		lunch.delete()
 	return render_template('monitoring.html', data=posts)

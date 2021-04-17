@@ -1,0 +1,145 @@
+table {
+    margin-top: 20px;
+    width: 50%; /* Ширина таблицы */
+    background: LightCyan; /* Цвет фона таблицы */
+    color: black; /* Цвет текста */
+    border-spacing: 4px; /* Расстояние между ячейками */
+}
+
+table {
+   border-collapse: separate;
+   border-spacing: 10px 20px;
+}
+table {
+   border-collapse: separate;
+   border-spacing: 10px;
+}
+
+
+td, th, tr {
+    background: Turquoise; /* Цвет фона ячеек */
+    padding: 15px; /* Поля вокруг текста */
+    border: 1px solid grey;
+}
+
+body {
+	background: url("/image/1533326959_low-poly-background-generator-min.png"); /* Путь к фоновому изображению */	
+	color: #font-family: fantasy;;
+	font-family: sans-serif;
+}
+
+/* Full-width inputs */
+input[type=text], input[type=password] {
+    width: 20%;
+    padding: 10px ;
+    margin: 8px 0;  
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 20%;
+}
+span.psw {
+    float: left;
+}
+
+h1, h2	{
+	text-transform: uppercase;
+	text-align: center;
+	margin-top: 20px;
+	font-size: 50px; 
+}
+
+p {
+	font-size: 20px;
+	display: block;
+	margin: 0 auto;
+	width: 80;
+}
+
+.button-wrapper{
+  display: flex;	
+  justify-content: center;	
+  padding: 10px 0;
+}
+
+.content {
+	padding: 10px 0;
+	max-width: 1500px;
+	margin: 0px auto;
+}
+
+.tabs {
+	margin: 0px 0px 50px 0px;
+}
+
+.tabs__items {
+	display: flex;
+}
+
+.tabs__item {
+	flex: 0 1 33.333%;
+	height: 40px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-transform: uppercase;
+	color: Black;
+	text-decoration: none;
+}
+
+.tabs__item span {
+	position: relative;
+	z-index: 2;
+}
+
+.tabs_block {
+	position: relative;
+	padding: 20px;
+	font-size: 20px;
+	line-height: 24px;
+	display: none;
+}
+
+.tabs_block:before{
+	content: "";
+	height: 50px;
+	width: 33.333%;
+	position: absolute;
+	top: -50px;
+}
+.tabs_block:nth-child(1){
+	background-color: MediumPurple;
+}
+
+.tabs_block:nth-child(1):before {
+	background-color: MediumPurple;
+	left: 0;
+}
+
+.tabs_block:nth-child(2) {
+	background-color: LemonChiffon;
+}
+
+.tabs_block:nth-child(2):before {
+	background-color: LemonChiffon;
+	left: 33.333%;
+}
+
+.tabs_block:nth-child(3) {
+	background-color: PaleTurquoise;
+}
+
+.tabs_block:nth-child(3):before {
+	background-color: PaleTurquoise;
+	right: 0;
+}
+
+.tabs_block:target{
+	display: block;}
+
